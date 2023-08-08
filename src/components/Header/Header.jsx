@@ -1,6 +1,63 @@
+import React from 'react';
+
+import styles from '../../styles/Header.module.css';
+import { Link } from 'react-router-dom';
+
+import { ROUTES } from '../../utils/routes';
+import logo from '../../images/logo.svg';
+import avatar from '../../images/avatar.jpg';
+
 const Header = () => {
 	return (
-		<div>Header</div>
-	)
-}
-export default Header
+		<div className={styles.header}>
+			<div className={styles.logo}>
+				<Link to={ROUTES.HOME}>
+					<img src={logo} alt='Stuff' />
+				</Link>
+			</div>
+			<div className={styles.info}>
+				<form className={styles.form}>
+					<div className={styles.icon}>
+						<svg className='icon'>
+							<use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#search`} />
+						</svg>
+					</div>
+					<div className={styles.input}>
+						<input
+							type='search'
+							name='search'
+							placeholder='Search for a game'
+							autoComplete='off'
+							onChange={() => {}}
+							value=''
+						/>
+					</div>
+
+					{/* <div className={styles.box}></div> */}
+				</form>
+				<div className={styles.account}>
+					<Link to={ROUTES.WISHLIST} className={styles.wishlist}>
+						<svg className={styles['icon-wishlist']}>
+							<use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#heart`} />
+						</svg>
+					</Link>
+
+					<Link to={ROUTES.LIBRARY} className={styles.cart}>
+						<svg className={styles['icon-library']}>
+							<use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#library`} />
+						</svg>
+					</Link>
+
+					<div className={styles.user}>
+						<div
+							className={styles.avatar}
+							style={{ backgroundImage: `url(${avatar})` }}
+						/>
+						<div className={styles.username}>Guest</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+export default Header;
