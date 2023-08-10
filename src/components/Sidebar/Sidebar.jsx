@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import styles from '../../styles/Sidebar.module.css';
 import { sidebarList } from '../../utils/constants';
+import { getRefactorTitleForURL } from '../../utils/functions';
 
 function Sidebar() {
 	return (
@@ -8,18 +9,18 @@ function Sidebar() {
 			{sidebarList.map(category => {
 				return category.map((item, id) => {
 					return id === 0 ? (
-						<div className={styles.title}>{item.title}</div>
+						<div className={styles.title} key={id}>
+							{item.title}
+						</div>
 					) : (
-						<nav>
+						<nav key={id}>
 							<ul className={styles.menu}>
 								<li>
 									<NavLink
 										className={({ isActive }) =>
 											`${styles.link} ${isActive ? styles.active : ''}`
 										}
-										to={`/discover/${item.title
-											.toLowerCase()
-											.replace(/ /g, '-')}`}
+										to={`/discover/${getRefactorTitleForURL(item.title)}`}
 									>
 										{item.title}
 									</NavLink>

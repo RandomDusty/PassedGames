@@ -13,8 +13,8 @@ export const sidebarList = [
 	],
 ];
 
-export const BASE_URL = 'https://id.twitch.tv/oauth2/token';
+export const PROXY = 'https://cors-ksi6.onrender.com/';
 
-export const CLIENT_ID = 'q8ew3es426cn9ipacj8n4wy3vjvc9w';
+export const BASE_URL = 'https://api.rawg.io/api/';
 
-export const CLIENT_SECRET = 'i0n6vekmuzkg1qjkt99ix402qgb09l';
+export const API_KEY = 'e187d2fb04cf4628862e12b299529d40';

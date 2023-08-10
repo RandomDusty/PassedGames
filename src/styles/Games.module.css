@@ -1,6 +1,6 @@
 .games {
 	width: 100%;
-	padding: 25px 22px;
+	padding: 15px 0px;
 }
 
 .list {
@@ -10,20 +10,20 @@
 	flex-wrap: wrap;
 }
 
-.product {
-	background: var(--bg);
+.game {
+	background: var(--dark);
 	border-radius: 8px;
 	overflow: hidden;
-	width: calc(100% / 5 - 20px);
+	width: calc(100% / 4.1 - 10px);
 }
 
-.product:nth-child(5n) {
-	width: calc(100% / 5);
+.game:nth-child(4.1n) {
+	width: calc(100% / 4.1);
 }
 
 .image {
 	width: 100%;
-	height: 410px;
+	height: 300px;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;

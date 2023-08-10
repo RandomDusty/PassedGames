@@ -1,32 +1,19 @@
 import axios from 'axios';
+import { API_KEY, BASE_URL, PROXY } from '../utils/constants';
 
 export default class gamesService {
-	static async getToken(clientId, clientSecret) {
+	static async getGames(count) {
 		try {
-			const response = await axios.post(
-				`https://id.twitch.tv/oauth2/token?client_id=${clientId}&client_secret=${clientSecret}&grant_type=client_credentials`
-			);
-			return response.data;
-		} catch (err) {
-			console.log(err);
-		}
-	}
-
-	static async getGames(clientId, token) {
-		try {
-			const response = await axios.post('https://api.igdb.com/v4/games', {
-				headers: {
-					Accept: 'application/json',
-					'Client-ID': clientId,
-					Authorization: `Bearer ${token}`,
+			const response = await axios.get(PROXY + BASE_URL + 'games', {
+				params: {
+					key: API_KEY,
+					page_size: count,
 				},
-				body: 'fields *;',
 			});
 
-			console.log(response);
-			return response;
-		} catch (err) {
-			console.log(err);
+			return response.data;
+		} catch (e) {
+			console.log(e);
 		}
 	}
 }

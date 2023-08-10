@@ -1,7 +1,7 @@
 export const ROUTES = {
 	HOME: '/',
-	GAMES: '/games/:title',
+	GAME: '/games/:slug',
 	WISHLIST: '/wishlist',
 	LIBRARY: '/library',
-	DISCOVER: '/discover/:title',
+	DISCOVER: '/discover/:slug',
 };

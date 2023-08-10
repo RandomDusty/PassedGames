@@ -1,5 +1,5 @@
 .sidebar {
-	width: 304px;
+	width: 200px;
 	padding: 0px 24px 24px 24px;
 	height: 100%;
 	display: flex;
@@ -21,7 +21,7 @@
 }
 
 .link {
-	color: var(--dark-sea);
+	color: var(--white);
 	font-size: 14px;
 	line-height: 17px;
 	text-transform: capitalize;

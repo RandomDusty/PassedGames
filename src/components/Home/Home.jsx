@@ -1,21 +1,14 @@
-import React, { useEffect } from 'react';
-import gamesService from '../../API/gamesService';
-import { CLIENT_ID, CLIENT_SECRET } from '../../utils/constants';
+import React, { StrictMode, useEffect } from 'react';
+import Games from '../Games/Games';
+import { useSelector } from 'react-redux';
 
 const Home = () => {
-	const fetch = async () => {
-		const response = await gamesService.getToken(CLIENT_ID, CLIENT_SECRET);
+	const { list } = useSelector(({ games }) => games);
 
-		const response2 = await gamesService.getGames(
-			CLIENT_ID,
-			response.access_token
-		);
-	};
-
-	useEffect(() => {
-		fetch();
-	}, []);
-
-	return <div></div>;
+	return (
+		<>
+			<Games games={list} title={'All Games'} />
+		</>
+	);
 };
 export default Home;

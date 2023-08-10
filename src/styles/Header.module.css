@@ -6,13 +6,13 @@
 }
 
 .logo {
-	width: 304px;
+	width: 200px;
 }
 
 .info {
 	display: flex;
 	align-items: center;
-	justify-content: space-around;
+	justify-content: space-between;
 	flex-grow: 1;
 }
 
@@ -47,7 +47,7 @@
 	height: 35px;
 	padding: 7px 10px;
 	column-gap: 16px;
-	width: 450px;
+	width: 600px;
 	position: relative;
 }
 
