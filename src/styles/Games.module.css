@@ -59,27 +59,6 @@
 	justify-content: space-between;
 }
 
-.prices {
-	display: flex;
-	align-items: center;
-	column-gap: 5px;
-}
-
-.price {
-	font-weight: 700;
-	font-size: 20px;
-	line-height: 24px;
-	color: var(--violet-dark);
-}
-
-.oldPrice {
-	font-weight: 500;
-	font-size: 13px;
-	line-height: 16px;
-	text-decoration-line: line-through;
-	color: var(--dark-sea);
-}
-
 .purchases {
 	color: var(--dark-sea);
 	font-weight: 500;

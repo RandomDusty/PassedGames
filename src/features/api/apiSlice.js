@@ -5,10 +5,22 @@ export const apiSlice = createApi({
 	reducerPath: 'api',
 	baseQuery: fetchBaseQuery({ baseUrl: PROXY + BASE_URL }),
 	endpoints: builder => ({
+		getGames: builder.query({
+			query: args => {
+				const { key, page, page_size, search, dates } = args;
+				return {
+					url: `games`,
+					params: { key, page, page_size, search, dates },
+				};
+			},
+		}),
 		getSingleGameBySlug: builder.query({
-			query: ({ key, slug }) => `games/${slug}?key=${key}`,
+			query: args => {
+				const { key, slug } = args;
+				return { url: `games/${slug}`, params: { key } };
+			},
 		}),
 	}),
 });
 
-export const { useGetSingleGameBySlugQuery } = apiSlice;
+export const { useGetSingleGameBySlugQuery, useGetGamesQuery } = apiSlice;
