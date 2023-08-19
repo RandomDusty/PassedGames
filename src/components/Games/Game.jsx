@@ -5,6 +5,7 @@ import {
 	addGameToWishlist,
 } from '../../features/user/userSlice';
 import { Link } from 'react-router-dom';
+import { memo, useMemo } from 'react';
 
 const Game = ({ gameInfo, dlcList, gamesInSeriesList, parentGamesList }) => {
 	console.log(gameInfo);
@@ -129,4 +130,5 @@ const Game = ({ gameInfo, dlcList, gamesInSeriesList, parentGamesList }) => {
 		</section>
 	);
 };
-export default Game;
+
+export default memo(Game);

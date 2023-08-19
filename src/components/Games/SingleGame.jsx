@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetSingleGameBySlugQuery } from '../../features/api/apiSlice';
 import { API_KEY } from '../../utils/constants';
-import { useEffect } from 'react';
+import { memo, useEffect } from 'react';
 import { ROUTES } from '../../utils/routes';
 import Game from './Game';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,7 +33,11 @@ const SingleGame = () => {
 	}, [slug]);
 
 	return !data ? (
-		<section className='preloader'>Loading...</section>
+		<section className='preloader'>
+			<section className='preloader'>
+				<div className='loader'></div>
+			</section>
+		</section>
 	) : (
 		<>
 			<Game
@@ -45,4 +49,4 @@ const SingleGame = () => {
 		</>
 	);
 };
-export default SingleGame;
+export default memo(SingleGame);

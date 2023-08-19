@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 
 import styles from '../../styles/Header.module.css';
 import { Link } from 'react-router-dom';
@@ -6,23 +6,36 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '../../utils/routes';
 import logo from '../../images/logo.png';
 import avatar from '../../images/avatar.jpg';
-import { useGetGamesQuery } from '../../features/api/apiSlice';
+import gamesService from '../../API/gamesService';
 import { API_KEY } from '../../utils/constants';
+import { useFetching } from '../../hooks/useFetching';
 
 const Header = () => {
-	const key = API_KEY;
-	const page = 1;
 	const page_size = 5;
 	const [searchValue, setSearchValue] = useState('');
+	const [searchData, setSearchData] = useState('');
 
-	const { data, isLoading } = useGetGamesQuery({
-		key,
-		page,
-		page_size,
-		search: searchValue,
-	});
+	const [fetchGames, isGamesLoading, gamesError] = useFetching(
+		async (searchValue, page_size) => {
+			const searchResult = await gamesService.getSearchedGames(
+				searchValue,
+				page_size
+			);
 
-	const searchData = data && data.results;
+			setSearchData(searchResult.results);
+			console.log(searchResult.results);
+		}
+	);
+
+	useEffect(() => {
+		if (searchValue) {
+			const delaySearch = setTimeout(() => {
+				fetchGames(searchValue, page_size);
+			}, 500);
+
+			return () => clearTimeout(delaySearch);
+		}
+	}, [searchValue]);
 
 	const handleSearch = ({ target: { value } }) => {
 		setSearchValue(value);
@@ -33,7 +46,7 @@ const Header = () => {
 			<div className={styles.info}>
 				<div className={styles.logo}>
 					<Link to={ROUTES.HOME}>
-						<img src={logo} alt='Stuff' />
+						<img src={logo} alt='GameLib' />
 					</Link>
 				</div>
 				<form className={styles.form}>
@@ -55,11 +68,11 @@ const Header = () => {
 
 					{searchValue && (
 						<div className={styles.box}>
-							{isLoading
-								? 'Loading'
-								: !searchData.length
-								? 'No results'
-								: searchData.map(({ id, slug, name, background_image }) => {
+							{!isGamesLoading && searchData ? (
+								!searchData.length ? (
+									'No results'
+								) : (
+									searchData.map(({ id, slug, name, background_image }) => {
 										return (
 											<Link
 												onClick={() => setSearchValue('')}
@@ -76,7 +89,11 @@ const Header = () => {
 												<div className={styles.title}>{name}</div>
 											</Link>
 										);
-								  })}
+									})
+								)
+							) : (
+								<div className={'loader'}></div>
+							)}
 						</div>
 					)}
 				</form>
@@ -105,4 +122,4 @@ const Header = () => {
 		</div>
 	);
 };
-export default Header;
+export default memo(Header);

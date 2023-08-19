@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { memo, useEffect } from 'react';
 import AppRoutes from './Routes/Routes';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
@@ -18,4 +18,4 @@ const App = () => {
 	);
 };
 
-export default App;
+export default memo(App);

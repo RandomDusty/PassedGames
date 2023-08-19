@@ -1,9 +1,12 @@
 .sidebar {
-	width: 200px;
+	width: 230px;
 	padding: 0px 24px 24px 24px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
+	position: sticky;
+	right: 0;
+	top: 0;
 }
 
 .title {
@@ -18,6 +21,13 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 12px;
+	column-gap: 12px;
+}
+
+li {
+	display: flex;
+	column-gap: 10px;
+	align-items: center;
 }
 
 .link {
@@ -39,4 +49,26 @@
 	margin-top: auto;
 	display: flex;
 	justify-content: space-between;
+}
+
+.icon {
+	width: 20px;
+	height: 20px;
+}
+
+.icon svg {
+	width: 100%;
+	height: 100%;
+	fill: var(--dark-sea);
+}
+
+.showButton {
+	background-color: inherit;
+	border-radius: inherit;
+	font-weight: inherit;
+	padding: 0px;
+}
+
+.showButton:hover {
+	background-color: inherit;
 }

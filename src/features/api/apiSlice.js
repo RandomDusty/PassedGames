@@ -7,16 +7,33 @@ export const apiSlice = createApi({
 	endpoints: builder => ({
 		getGames: builder.query({
 			query: args => {
-				const { key, page, page_size, search, dates } = args;
+				const {
+					key,
+					page,
+					page_size,
+					dates,
+					ordering,
+					parent_platforms,
+					platforms,
+				} = args;
 				return {
 					url: `games`,
-					params: { key, page, page_size, search, dates },
+					params: {
+						key,
+						page,
+						page_size,
+						dates,
+						ordering,
+						parent_platforms,
+						platforms,
+					},
 				};
 			},
 		}),
 		getSingleGameBySlug: builder.query({
 			query: args => {
 				const { key, slug } = args;
+				console.log('asd');
 				return { url: `games/${slug}`, params: { key } };
 			},
 		}),

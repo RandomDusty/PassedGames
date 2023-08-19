@@ -32,8 +32,10 @@
 .wrapper {
 	padding: 12px;
 	display: flex;
-	flex-direction: column;
-	height: calc(100% - 410px);
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .title {
@@ -69,4 +71,28 @@
 .button {
 	margin-top: 24px;
 	text-align: center;
+}
+
+.metascore {
+	border: 1px solid;
+	border-radius: 5px;
+	width: -webkit-fit-content;
+	width: -moz-fit-content;
+	width: fit-content;
+	padding: 1px 4px;
+}
+
+.games-enter {
+	opacity: 0;
+}
+.games-enter-active {
+	opacity: 1;
+	transition: opacity 500ms ease-in;
+}
+.games-exit {
+	opacity: 1;
+}
+.games-exit-active {
+	opacity: 0;
+	transition: opacity 500ms ease-in;
 }

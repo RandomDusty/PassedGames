@@ -1,22 +1,23 @@
-import React, { StrictMode, useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 import Games from '../Games/Games';
-import { useSelector } from 'react-redux';
-import { API_KEY } from '../../utils/constants';
-import { useGetGamesQuery } from '../../features/api/apiSlice';
-import { useFetching } from '../../hooks/useFetching';
+import { memo, useEffect, useMemo, useState } from 'react';
 import gamesService from '../../API/gamesService';
+import { useFetching } from '../../hooks/useFetching';
 
-const Home = () => {
+const Discover = () => {
 	const page = 1;
 	const page_size = 28;
+	const location = useLocation();
+	const { title, paramsForApi } = location.state;
 	const [games, setGames] = useState([]);
 	const [totalPages, setTotalPages] = useState(0);
 
 	const [fetchGames, isGamesLoading, gamesError] = useFetching(
-		async (page, page_size) => {
+		async (page, page_size, paramsForApi) => {
 			const response = await gamesService.getGames({
 				page,
 				page_size,
+				...paramsForApi,
 			});
 			console.log(response);
 			setGames(response.results);
@@ -26,8 +27,8 @@ const Home = () => {
 	);
 
 	useEffect(() => {
-		fetchGames(page, page_size);
-	}, []);
+		fetchGames(page, page_size, paramsForApi);
+	}, [title]);
 
 	return isGamesLoading ? (
 		<section className='preloader'>
@@ -36,7 +37,7 @@ const Home = () => {
 	) : !gamesError ? (
 		<>
 			<Games
-				title={'All Games'}
+				title={title}
 				paramsForApi={{}}
 				games={games}
 				setGames={setGames}
@@ -49,4 +50,4 @@ const Home = () => {
 		</div>
 	);
 };
-export default Home;
+export default memo(Discover);

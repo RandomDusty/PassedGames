@@ -138,6 +138,7 @@
 	padding: 12px;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 	row-gap: 8px;
 	background: var(--dark-sea);
 	border-radius: 8px;
@@ -152,6 +153,7 @@
 	color: var(--grey);
 	display: flex;
 	align-items: center;
+	width: 100%;
 	column-gap: 16px;
 }
 
@@ -167,3 +169,5 @@
 	height: 50px;
 	width: 50px;
 }
+
+
