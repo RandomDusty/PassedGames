@@ -1,0 +1,38 @@
+.items {
+	width: 100%;
+	padding: 15px 0px;
+}
+
+.list {
+	margin-top: 24px;
+	display: flex;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.wrapper {
+	padding: 12px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.item {
+	background-color: var(--dark);
+	border-radius: 8px;
+	overflow: hidden;
+	width: calc(100% / 4.1 - 10px);
+	height: 300px;
+	background-position: 50%;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.title {
+	font-weight: 600;
+	font-size: 20px;
+	text-decoration: underline;
+	line-height: 18px;
+	margin-top: 30px;
+}

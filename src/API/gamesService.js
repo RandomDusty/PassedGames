@@ -92,4 +92,20 @@ export default class gamesService {
 			console.log(e);
 		}
 	}
+
+	static async getBrowseItemList(urlPath, page, page_size) {
+		try {
+			const response = await axios.get(PROXY + BASE_URL + urlPath, {
+				params: {
+					key: API_KEY,
+					page: page,
+					page_size: page_size,
+				},
+			});
+
+			return response.data;
+		} catch (e) {
+			console.log(e);
+		}
+	}
 }

@@ -5,6 +5,10 @@ import { useObserver } from '../../hooks/useObserver';
 import gamesService from '../../API/gamesService';
 import { useFetching } from '../../hooks/useFetching';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { FixedSizeList as List } from 'react-window';
+import AutoSizer from 'react-virtualized-auto-sizer';
+import InfiniteLoader from 'react-window-infinite-loader';
 
 const Games = ({ title, paramsForApi, games, setGames, totalPageCount }) => {
 	const redMetascore = { color: 'red', borderColor: 'red' };
@@ -16,7 +20,7 @@ const Games = ({ title, paramsForApi, games, setGames, totalPageCount }) => {
 	const page_size = 28;
 
 	const [fetchGames, isGamesLoading, gamesError] = useFetching(
-		async (page, page_size, paramsForApi) => {
+		async (page, page_size, paramsForApi, visibleStartIndex) => {
 			const response = await gamesService.getGames({
 				page,
 				page_size,
@@ -44,10 +48,12 @@ const Games = ({ title, paramsForApi, games, setGames, totalPageCount }) => {
 					return (
 						<CSSTransition key={id} timeout={500} className={styles.game}>
 							<Link to={`/games/${slug}`}>
-								<div
+								<LazyLoadImage
 									className={styles.image}
-									style={{ backgroundImage: `url(${background_image})` }}
+									alt={`Image ${name}`}
+									src={background_image}
 								/>
+
 								<div className={styles.wrapper}>
 									<h3 className={styles.title}>{name}</h3>
 									{metacritic && (

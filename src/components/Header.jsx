@@ -1,14 +1,14 @@
 import React, { memo, useEffect, useState } from 'react';
 
-import styles from '../../styles/Header.module.css';
+import styles from '../styles/Header.module.css';
 import { Link } from 'react-router-dom';
 
-import { ROUTES } from '../../utils/routes';
-import logo from '../../images/logo.png';
-import avatar from '../../images/avatar.jpg';
-import gamesService from '../../API/gamesService';
-import { API_KEY } from '../../utils/constants';
-import { useFetching } from '../../hooks/useFetching';
+import { ROUTES } from '../utils/routes';
+import logo from '../images/logo.png';
+import avatar from '../images/avatar.jpg';
+import gamesService from '../API/gamesService';
+import { API_KEY } from '../utils/constants';
+import { useFetching } from '../hooks/useFetching';
 
 const Header = () => {
 	const page_size = 5;

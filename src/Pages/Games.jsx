@@ -1,23 +1,22 @@
-import { useLocation, useParams } from 'react-router-dom';
-import Games from '../Games/Games';
-import { memo, useEffect, useMemo, useState } from 'react';
-import gamesService from '../../API/gamesService';
-import { useFetching } from '../../hooks/useFetching';
+import { Link } from 'react-router-dom';
+import styles from '../styles/Games.module.css';
+import { memo, useEffect, useRef, useState } from 'react';
+import { useObserver } from '../hooks/useObserver';
+import gamesService from '../API/gamesService';
+import { useFetching } from '../hooks/useFetching';
+import GameList from '../components/GameList';
 
-const Discover = () => {
+const Games = () => {
 	const page = 1;
 	const page_size = 28;
-	const location = useLocation();
-	const { title, paramsForApi } = location.state;
 	const [games, setGames] = useState([]);
 	const [totalPages, setTotalPages] = useState(0);
 
 	const [fetchGames, isGamesLoading, gamesError] = useFetching(
-		async (page, page_size, paramsForApi) => {
+		async (page, page_size) => {
 			const response = await gamesService.getGames({
 				page,
 				page_size,
-				...paramsForApi,
 			});
 			console.log(response);
 			setGames(response.results);
@@ -27,8 +26,8 @@ const Discover = () => {
 	);
 
 	useEffect(() => {
-		fetchGames(page, page_size, paramsForApi);
-	}, [title]);
+		fetchGames(page, page_size);
+	}, []);
 
 	return isGamesLoading ? (
 		<section className='preloader'>
@@ -36,8 +35,8 @@ const Discover = () => {
 		</section>
 	) : !gamesError ? (
 		<>
-			<Games
-				title={title}
+			<GameList
+				title={'All Games'}
 				paramsForApi={{}}
 				games={games}
 				setGames={setGames}
@@ -50,4 +49,4 @@ const Discover = () => {
 		</div>
 	);
 };
-export default memo(Discover);
+export default memo(Games);

@@ -1,0 +1,56 @@
+.dropdown {
+	position: relative;
+	margin-top: 20px;
+	width: 250px;
+}
+
+.menu {
+	position: absolute;
+	list-style-type: none;
+	padding: 0;
+	width: 100%;
+}
+
+.menu > li {
+	margin: 0;
+	background-color: var(--dark);
+	color: white;
+}
+
+.menu > li:hover {
+	background-color: var(--dark-sea);
+}
+
+.menu > li > button {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 5px;
+	margin: 0;
+	font: inherit;
+	cursor: pointer;
+}
+
+.title,
+.open_title {
+	background-color: var(--dark);
+	border-radius: 0%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.title:hover {
+	background-color: var(--dark);
+	color: var(--dark-sea);
+}
+
+.open_title:hover {
+	background-color: var(--dark);
+	cursor: default;
+	color: white;
+}
