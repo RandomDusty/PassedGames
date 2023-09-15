@@ -6,6 +6,7 @@
 	flex-direction: column;
 	position: sticky;
 	right: 0;
+	transition: top 0.3s;
 	top: 0;
 }
 

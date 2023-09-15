@@ -24,39 +24,35 @@ const GameListItem = ({ game }) => {
 	});
 
 	return (
-		<div className={styles.game} ref={ref}>
-			<CSSTransition timeout={500}>
-				<Link to={`/games/${slug}`}>
-					{inView ? (
-						<LazyLoadImage
-							className={styles.image}
-							alt={`Image ${name}`}
-							src={background_image ? background_image : imageNotFound}
-						/>
-					) : (
-						<div className={styles['image_skeleton']}></div>
-					)}
+		<Link to={`/games/${slug}`} ref={ref} className={styles.game}>
+			{inView ? (
+				<LazyLoadImage
+					className={styles.image}
+					alt={`Image ${name}`}
+					src={background_image ? background_image : imageNotFound}
+				/>
+			) : (
+				<div className={styles.image_skeleton}></div>
+			)}
 
-					<div className={styles.wrapper}>
-						<h3 className={styles.title}>{name}</h3>
-						{metacritic && (
-							<p
-								className={styles.metascore}
-								style={
-									metacritic >= 75
-										? greenMetascore
-										: metacritic >= 50
-										? yellowMetascore
-										: redMetascore
-								}
-							>
-								{metacritic}
-							</p>
-						)}
-					</div>
-				</Link>
-			</CSSTransition>
-		</div>
+			<div className={styles.wrapper}>
+				<h3 className={styles.title}>{name}</h3>
+				{metacritic && (
+					<p
+						className={styles.metascore}
+						style={
+							metacritic >= 75
+								? greenMetascore
+								: metacritic >= 50
+								? yellowMetascore
+								: redMetascore
+						}
+					>
+						{metacritic}
+					</p>
+				)}
+			</div>
+		</Link>
 	);
 };
 export default GameListItem;

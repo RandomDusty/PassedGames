@@ -10,6 +10,12 @@
 	flex-wrap: wrap;
 }
 
+.gamelist_header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-end;
+}
+
 .game {
 	background: var(--dark);
 	border-radius: 8px;
@@ -87,17 +93,32 @@
 	padding: 1px 4px;
 }
 
-.games-enter {
+.list.entering {
 	opacity: 0;
 }
-.games-enter-active {
+.list.entered {
 	opacity: 1;
 	transition: opacity 500ms ease-in;
 }
-.games-exit {
+.list.exiting {
 	opacity: 1;
 }
-.games-exit-active {
+.list.exited {
+	opacity: 0;
+	transition: opacity 500ms ease-in;
+}
+
+.transition_loader.entering {
+	opacity: 0;
+}
+.transition_loader.entered {
+	opacity: 1;
+	transition: opacity 500ms ease-in;
+}
+.transition_loader.exiting {
+	opacity: 1;
+}
+.transition_loader.exited {
 	opacity: 0;
 	transition: opacity 500ms ease-in;
 }

@@ -5,23 +5,26 @@ import { getRefactorTitleForURL } from '../utils/functions';
 import { memo, useEffect, useState } from 'react';
 import SidebarItem from './SidebarItem';
 
-function Sidebar() {
-	const [show, setShow] = useState([]);
+function Sidebar({ showHeader }) {
+	const [showButtons, setShowButtons] = useState([]);
 
 	function toggleShow(sidebarItemsId) {
-		let showButtons = show.slice(0);
+		let currentShowButtons = showButtons.slice(0);
 
-		if (showButtons[sidebarItemsId] !== undefined) {
-			showButtons[sidebarItemsId] = !showButtons[sidebarItemsId];
+		if (currentShowButtons[sidebarItemsId] !== undefined) {
+			currentShowButtons[sidebarItemsId] = !currentShowButtons[sidebarItemsId];
 		} else {
-			showButtons[sidebarItemsId] = true;
+			currentShowButtons[sidebarItemsId] = true;
 		}
 
-		setShow(showButtons);
+		setShowButtons(currentShowButtons);
 	}
 
 	return (
-		<section className={styles.sidebar}>
+		<section
+			className={styles.sidebar}
+			style={{ top: showHeader ? '80px' : '0' }}
+		>
 			{sidebarList.map((sidebarItems, sidebarItemsId) => {
 				return sidebarItems.map(
 					(categoryItem, sidebarItemId, categoryArr) => {
@@ -30,7 +33,7 @@ function Sidebar() {
 								<SidebarItem
 									categoryItem={categoryItem}
 									sidebarItemId={sidebarItemId}
-									showButtons={show}
+									showButtons={showButtons}
 									sidebarItemsId={sidebarItemsId}
 								/>
 								{categoryArr.length >= 4 &&
@@ -39,7 +42,7 @@ function Sidebar() {
 										<svg className={styles.icon}>
 											<use
 												xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#${
-													show[sidebarItemsId]
+													showButtons[sidebarItemsId]
 														? 'svg-Arrow_Up'
 														: 'svg-Arrow_Down'
 												}`}
@@ -49,7 +52,7 @@ function Sidebar() {
 											className={styles.showButton}
 											onClick={() => toggleShow(sidebarItemsId)}
 										>
-											{show[sidebarItemsId] ? 'Hide' : 'Show all'}
+											{showButtons[sidebarItemsId] ? 'Hide' : 'Show all'}
 										</button>
 									</li>
 								) : (

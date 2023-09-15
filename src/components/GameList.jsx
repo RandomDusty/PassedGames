@@ -43,15 +43,17 @@ const GameList = ({ title, paramsForApi, games, setGames, totalPageCount }) => {
 
 	useEffect(() => {
 		if (page !== 1 && games.length !== 0) {
-			fetchGames(
-				page,
-				page_size,
-				{
-					...paramsForApi,
-					...orderParams,
-				},
-				false
-			);
+			setTimeout(() => {
+				fetchGames(
+					page,
+					page_size,
+					{
+						...paramsForApi,
+						...orderParams,
+					},
+					false
+				);
+			}, 200);
 		}
 	}, [page, title]);
 
@@ -70,37 +72,42 @@ const GameList = ({ title, paramsForApi, games, setGames, totalPageCount }) => {
 		}
 	}, [orderParams]);
 
+	const [inProp, setInProp] = useState(false);
+
 	return (
 		<section className={styles.games}>
-			{title && <h2>{title}</h2>}
+			<div className={styles.gamelist_header}>
+				{title && <h2>{title}</h2>}
 
-			<Dropdown
-				trigger={
-					<button>
-						Order by: {currentOrder}
-						<svg className='icon'>
-							<use
-								xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#svg-Arrow_Down`}
-							/>
-						</svg>
-					</button>
-				}
-				menu={orderDropdownList}
-				setCurrentOrder={setCurrentOrder}
-				setOrderParams={setOrderParams}
-			/>
+				<Dropdown
+					trigger={
+						<button>
+							Order by: {currentOrder}
+							<svg className='icon'>
+								<use
+									xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#svg-Arrow_Down`}
+								/>
+							</svg>
+						</button>
+					}
+					menu={orderDropdownList}
+					setCurrentOrder={setCurrentOrder}
+					setOrderParams={setOrderParams}
+				/>
+			</div>
 
-			<TransitionGroup className={styles.list}>
+			<div className={styles.list}>
 				{games.map((game, index) => {
-					return <GameListItem game={game} key={index} />;
+					return <GameListItem game={game} key={game.id} />;
 				})}
+			</div>
 
-				{isGamesLoading && (
-					<section className='preloader'>
-						<div className='loader'></div>
-					</section>
-				)}
-			</TransitionGroup>
+			{page < totalPageCount && (
+				<section className='preloader'>
+					<div className='loader'></div>
+				</section>
+			)}
+
 			<div ref={lastElement} />
 		</section>
 	);

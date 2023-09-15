@@ -10,7 +10,7 @@ import gamesService from '../API/gamesService';
 import { API_KEY } from '../utils/constants';
 import { useFetching } from '../hooks/useFetching';
 
-const Header = () => {
+const Header = ({ showHeader }) => {
 	const page_size = 5;
 	const [searchValue, setSearchValue] = useState('');
 	const [searchData, setSearchData] = useState('');
@@ -42,13 +42,14 @@ const Header = () => {
 	};
 
 	return (
-		<div className={styles.header}>
+		<div className={styles.header} style={{ top: showHeader ? '0' : '-100px' }}>
 			<div className={styles.info}>
 				<div className={styles.logo}>
 					<Link to={ROUTES.HOME}>
 						<img src={logo} alt='GameLib' />
 					</Link>
 				</div>
+
 				<form className={styles.form}>
 					<div className={styles.icon}>
 						<svg className='icon'>
