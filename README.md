@@ -1,1 +1,1 @@
-[a link](game-lib-psi.vercel.app/)
+[Deployed application](game-lib-psi.vercel.app/)
