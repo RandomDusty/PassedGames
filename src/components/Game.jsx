@@ -5,8 +5,9 @@ import {
 	addGameToWishlist,
 } from '../features/user/userSlice';
 import { Link } from 'react-router-dom';
-import { memo, useMemo } from 'react';
+import { memo, useMemo, useState } from 'react';
 import imageNotFound from '../images/image_not_found.jpg';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 const Game = ({ gameInfo, dlcList, gamesInSeriesList, parentGamesList }) => {
 	console.log(gameInfo);
@@ -14,6 +15,7 @@ const Game = ({ gameInfo, dlcList, gamesInSeriesList, parentGamesList }) => {
 	const dispatch = useDispatch();
 
 	const { library, wishlist } = useSelector(({ user }) => user);
+	const [isFullDescriptionHidden, setIsFullDescriptionHidden] = useState(true);
 
 	let description = { __html: gameInfo.description };
 	let dateOfRelease = new Date(gameInfo.released).toLocaleString('en-US', {
@@ -28,6 +30,10 @@ const Game = ({ gameInfo, dlcList, gamesInSeriesList, parentGamesList }) => {
 
 	const addToWishlist = () => {
 		dispatch(addGameToWishlist(gameInfo));
+	};
+
+	const readMoreButtonToggle = () => {
+		setIsFullDescriptionHidden(!isFullDescriptionHidden);
 	};
 
 	return (
@@ -70,8 +76,22 @@ const Game = ({ gameInfo, dlcList, gamesInSeriesList, parentGamesList }) => {
 				<div className={styles.info}>
 					<h1 className={styles.title}>{gameInfo.name}</h1>
 					<div className={styles.description}>
-						<p>About</p>
-						<div dangerouslySetInnerHTML={description} />
+						<h3 style={{ color: '#f6f6f7' }}>Summary</h3>
+						<div
+							dangerouslySetInnerHTML={description}
+							style={{
+								overflow: `${isFullDescriptionHidden ? 'hidden' : ''}`,
+								height: `${isFullDescriptionHidden ? '100px' : 'auto'}`,
+							}}
+						/>
+						<p
+							className={styles.readMoreButton}
+							onClick={() => {
+								readMoreButtonToggle();
+							}}
+						>
+							{isFullDescriptionHidden ? 'Read more' : 'Show less'}
+						</p>
 					</div>
 				</div>
 			</div>
@@ -96,41 +116,65 @@ const Game = ({ gameInfo, dlcList, gamesInSeriesList, parentGamesList }) => {
 			) : (
 				<div></div>
 			)}
+
 			{gameInfo.game_series_count > 0 ? (
-				<div>
-					<p>Other games in the series :</p>
-					{gamesInSeriesList.map((game, id) => {
-						return (
-							<span key={id}>
-								<Link className={styles.linkGame} to={`/games/${game.slug}`}>
-									{game.name}
+				<>
+					<p>Other games in the series :</p>{' '}
+					<div className={styles.relatedGamesList}>
+						{gamesInSeriesList.map((game, id) => {
+							return (
+								<Link
+									className={styles.relatedGamesListItem}
+									key={id}
+									to={`/games/${game.slug}`}
+								>
+									<div
+										className={styles.image}
+										style={{
+											backgroundImage: `url(${
+												game.background_image
+													? game.background_image
+													: imageNotFound
+											})`,
+										}}
+									/>
+									<p>{game.name}</p>
 								</Link>
-								{id != gamesInSeriesList.length - 1 ? (
-									<span>, </span>
-								) : (
-									<span></span>
-								)}
-							</span>
-						);
-					})}
-				</div>
+							);
+						})}
+					</div>
+				</>
 			) : (
 				<div></div>
 			)}
+
 			{gameInfo.additions_count > 0 ? (
-				<div>
+				<>
 					<p>DLC's and editions :</p>
-					{dlcList.map((game, id) => {
-						return (
-							<span key={id}>
-								<Link className={styles.linkGame} to={`/games/${game.slug}`}>
-									{game.name}
+					<div className={styles.relatedGamesList}>
+						{dlcList.map((game, id) => {
+							return (
+								<Link
+									className={styles.relatedGamesListItem}
+									key={id}
+									to={`/games/${game.slug}`}
+								>
+									<div
+										className={styles.image}
+										style={{
+											backgroundImage: `url(${
+												game.background_image
+													? game.background_image
+													: imageNotFound
+											})`,
+										}}
+									/>
+									<p>{game.name}</p>
 								</Link>
-								{id != dlcList.length - 1 ? <span>, </span> : <span></span>}
-							</span>
-						);
-					})}
-				</div>
+							);
+						})}
+					</div>
+				</>
 			) : (
 				<div></div>
 			)}

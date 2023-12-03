@@ -1,13 +1,14 @@
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
 	width: 7px;
+	height: 7px;
 }
 
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
 	background: #fff;
 	border-radius: 5px;
 }
 
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
 	background-color: var(--dark);
 }
 
@@ -20,7 +21,7 @@ body {
 	font-family: Montserrat, Roboto, sans-serif;
 	padding: 0;
 	margin: 0;
-	overflow-x: hidden;
+	/* overflow-x: hidden; */
 	color: #fff;
 	font-weight: 500;
 }
@@ -170,5 +171,3 @@ input {
 	height: 100%;
 	fill: var(--dark-sea);
 }
-
-
